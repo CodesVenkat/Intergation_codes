@@ -26,3 +26,31 @@ const Selectors = () => {
 };
 
 export default Selectors;
+
+
+// example 2
+
+import React, { useState } from 'react';
+
+const Third = () => {
+  // The useState function returns an array with two elements:
+  // The first element is the current state value.
+  // The second element is a function that allows you to update the state.
+  const [state, setState] = useState(1);
+
+  // Example of usage
+  const handleClick = () => {
+    // Use the setState function to update the state.
+    setState(state+1);
+    console.log(state);
+  };
+
+  return (
+    <div>
+      <p>Current state: {state}</p>
+      <button onClick={handleClick}>Update State</button>
+    </div>
+  );
+};
+
+export default Third;
