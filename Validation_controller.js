@@ -1,4 +1,8 @@
-    <form onSubmit={handleSubmit(onSubmit)} className="forms">
+  const { control, handleSubmit, formState} =useForm();
+
+return
+
+<form onSubmit={handleSubmit(onSubmit)} className="forms">
       <Typography variant="h2" gutterBottom>
         Contact us
       </Typography>
