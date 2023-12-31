@@ -1,222 +1,135 @@
-import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { GiWaterRecycling } from "react-icons/gi";
-import { MdOutlineMenu } from "react-icons/md";
-// import { Link, useLocation,useHistory } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-import { Link } from "@mui/material";
+    <form onSubmit={handleSubmit(onSubmit)} className="forms">
+      <Typography variant="h2" gutterBottom>
+        Contact us
+      </Typography>
+      <div>
+        <Controller
+          name="name"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: "Name is required",
+            minLength: {
+              value: 2,
+              message: "Minimum length is 2 characters",
+            },
+            maxLength: {
+              value: 20,
+              message: "Maximum length is 20 characters",
+            },
+          }}
+          render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                fullWidth
+                label="Name"
+                margin="normal"
+                error={!!formState.errors.name}
+              />
+              {formState.errors.name && (
+                <p style={{ color: "red" }}>{formState.errors.name.message}</p>
+              )}
+            </>
+          )}
+        />
 
-const pages = [
-  "Products",
-  "Pricing",
-  "Blog",
-  "Profile",
-  "Account",
-  "Dashboard",
-  "Logout",
-];
-const settings = ["Admin","Product"];
+        <br />
+        <br />
+        <Controller
+          name="email"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: "email is mandatory",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+              message: "enter the valid email id",
+            },
+          }}
+          render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                label="Email"
+                fullWidth
+                error={!!formState.errors.email}
+              />
+              {formState?.errors.email && (
+                <p style={{ color: "red" }}>
+                  {formState?.errors.email.message}
+                </p>
+              )}
+            </>
+          )}
+        />
+        <br />
+        <br />
+        <Controller
+          name="phnum"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: "Mobile Number is required",
+            maxLength: {
+              value: 10,
+              message: "Only 10 Numbers Allowed",
+            },
+          }}
+          render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                fullWidth
+                label="Mobile Number"
+                type="number"
+                error={!!formState.errors.phnum}
+              />
+              {formState.errors.phnum && (
+                <p style={{ color: "red" }}>
+                  {formState.errors.phnum.message}
+                </p>
+              )}
+            </>
+          )}
+        />
+        <br />
+        <br />
+        <Controller
+          name="message"
+          control={control}
+          defaultValue=""
+          rules={{
+            required: " Message is required",
+            minLength: {
+              value: 5,
+              message: "min 5 letters",
+            },
+            maxLength: {
+              value: 25,
+              message: "max 30 letters",
+            },
+          }}
+          render={({ field }) => (
+            <>
+              <TextField
+                {...field}
+                label="Message us"
+                type="text"
+                multiline
+                rows={4}
+                fullWidth
+                error={!!formState.errors.message}
+              />
+              {formState.errors.message && (
+                <p style={{ color: "red" }}>
+                  {formState.errors.message.message}
+                </p>
+              )}
+            </>
+          )}
+        />
+        <Button type="submit"> Submit</Button>
+      </div>
+    </form>
 
-function Navs(props) {
-  const { data } = props;
-  // const history = useHistory();
-  const navigate = useNavigate();
-  // const location =useLocation()
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    navigate("/Customercrd")
-    debugger;
-    setAnchorElNav(null);
-    // console.log(data,'currentpage')
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
-  const onChange = (e, data) => {
-  
-    if(e==="Admin"){
-      navigate("/Admin", { state: { data } });
-    }
-
-    if(e==="Product"){
-      navigate("/Product")
-    }
-    
-    // if(e==="Home"){
-    //   navigate("/")
-    // }
-   
-  
-
-    
-  };
-  const handleNavigate = () => {
-    // Navigate to the specified route
-    navigate('/');
-  };
-
-  return (
-    <div className="back-img">
-      <AppBar
-        position="static"
-        sx={{ boxShadow: "none", backgroundColor:"lightblue" }}
-      >
-        <Container maxWidth="lg">
-          <Toolbar disableGutters>
-            {/* <GiWaterRecycling /> */}
-         
-          <Typography
-              variant="h6"
-              noWrap
-              component="a"
-              onClick={handleNavigate}
-              href="#Main"
-              sx={{
-                mr: 2,
-                display: { xs: "none", md: "flex" },
-                fontFamily: "roboto",
-                fontWeight: 700,
-                letterSpacing: ".2rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              <span style={{color:"black"}}>Jobs</span>Factory
-            </Typography>
-         
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <MenuIcon
-                  sx={{ color: "#fff !important", backgroundColor: "#fff" }}
-                />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-                open={Boolean(anchorElNav)}
-                onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" },
-                  textTransform: "none",
-                }}
-              >
-                {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              href="#app-bar-with-responsive-menu"
-              sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
-              }}
-            >
-              telecord
-            </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Button
-                  key={page}
-                  onClick={() => handleCloseNavMenu()}
-                  sx={{
-                    my: 2,
-                    color: "black",
-                    display: "block",
-                    textTransform: "none",
-                  }}
-                >
-                  {page}
-                </Button>
-              ))}
-            </Box>
-
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <MdOutlineMenu sx={{ color: "#fff" }} />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting,index) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Box textAlign="center" onClick={(e) => onChange(setting, data)}>
-                      {setting}
-                    </Box>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </div>
-  );
-}
-
-export default Navs;
