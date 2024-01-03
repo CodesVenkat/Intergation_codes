@@ -1,3 +1,9 @@
+// ithula rendu DropDown box irukkum 
+// first dropDown contains a name => subash
+// second dropdown la Langugae select pannanum => angular ,nodejs
+// angular click pannum pothu console la => frontend
+// nodejs click  panna coonsole la => backend
+
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -59,6 +65,8 @@ export default function ControllableStates() {
   const handleChange = (event, newValue) => {
     setSelect(event.target.value)
     console.log(event.target.value);
+    // Also we can use this
+    // console.log(event.target.value.domain);
   };
 
   return (
