@@ -28,6 +28,8 @@ const Propss = () => {
          const{Name,Age}= info
           return(
             <Details Name={Name} Age={Age}/>
+            // this is easiest method using spread operator  to pass...info
+             <Details {...info}/>
           )
        })
      }
