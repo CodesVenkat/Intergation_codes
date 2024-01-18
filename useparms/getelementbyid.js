@@ -43,9 +43,7 @@ function CustProd(props) {
       });
   };
   const handleShow = (productId) => {
-    debugger
-    navigate(/getshowcrd/${productId});
-    debugger
+    navigate(`/getshowcrd/${productId}`);
     console.log(productId);
   };
 
@@ -123,3 +121,48 @@ function CustProd(props) {
 }
 
 export default CustProd;
+
+
+
+// DisplayProduct.js
+
+import React from 'react'
+import { useParams } from 'react-router-dom'
+
+const DisplayProduct = () => {    
+    const{id}=useParams();
+  return (
+    <div>
+        <h1>{`${id}`}</h1>
+    </div>
+  )
+}
+
+export default DisplayProduct
+
+
+// APP.js
+
+
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import LoadingContext from './components/Context/LoadingContext';
+import DisplayProduct from './components/ProductDisplay/DisplayProduct';
+
+
+function App() {
+ 
+  return (
+    <LoadingContext>
+    
+    <Routes>
+      <Route path="/DisplayProduct" element={<DisplayProduct/>} />
+      <Route path="/DisplayProduct/:id" element={<DisplayProduct/>} />
+    </Routes>
+    </LoadingContext>
+    
+    
+  );
+}
+
+export default App;
