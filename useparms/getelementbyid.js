@@ -1,126 +1,126 @@
-import React, { useState, useEffect } from "react";
-import Navs from "./navb/Navs";
+import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import apiService from "./service/apiService";
-import { Container, Grid } from "@mui/material";
-import { useProgressBar } from "./context/LoadingContext";
-import Loder from "./context/Loder";
+import Navs from "./Navs";
+import apiService from "./services/apiService";
+import { display } from "@mui/system";
+import { Grid } from "@mui/material";
+import { useProgressBar } from "./Context/LoadingContext";
+import Loading from "./Context/Loading";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CustProd(props) {
-  const [store, setStore] = useState();
-  const { loading, setLoading } = useProgressBar();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    getApi();
-  }, []);
+
+export default function MediaCard() {
+  const [data, setData] = React.useState();
+  const{loading,setLoading}=useProgressBar();
+  const Navigate = useNavigate()
+useEffect(() => {
+   getApi();
+},[]);
+   
+  // apiService("Products", "", "unauthget")
+  //   .then((result) => {
+  //     setData(result.data);
+  //     setLoading(false)
+  //     console.log(result.data);
+  //   })
+  //   .catch((err) => {}).finally(()=>{
+      
+  //   });
 
   const getApi = () => {
     setLoading(true);
     var req = {
-      // listSize: 5,
-      // pageNumber: 2,
-      showProductImage: 1,
-      // searchString: "",
-      // show: "SALEAVAILABLE",
-    };
-    apiService("product/list", req, "unauthpost")
-      .then((result) => {
-        setStore(result.data.responseModelList);
-        console.log(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  };
-  const handleShow = (productId) => {
-    navigate(`/getshowcrd/${productId}`);
-    console.log(productId);
-  };
+        // "listSize": 5,
+        // "pageNumber": 2,
+        "showProductImage": 1,
+        // "searchString": '',
+        // "show": "SALEAVAILABLE"
+      }
+        apiService('product/list', req, 'unauthpost')
+          .then((result) => {
+            setData(result.data.responseModelList);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      };
+
+
+      const handleShow=(productId)=>{
+          Navigate(`/DisplayProduct/${productId}`)
+          console.log(productId);
+      }
+
 
   return (
     <div>
       <Navs />
-      <Container>
-        <h1 style={{ color: "#7B50D5", margin: "30px 0px" }}>Products...</h1>
-        {loading ? (
-          <Loder />
-        ) : (
-          <div>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-              spacing={5}
-              sx={{ marginTop: "20px" }}
-            >
-              {store &&
-                store.map((p) => {
-                  return (
-                    <Grid item sm={12} md={4} lg={3} key={p.productId}>
-                      <Card sx={{ maxWidth: 250 }}>
-                        <CardMedia
-                          sx={{ height: 200, width: "100%", maxWidth: "142px" }}
-                          image={p.imageURL}
-                          title="Products"
-                        />
-                        <CardContent>
-                          <Typography
-                            gutterBottom
-                            variant="h5"
-                            component="div"
-                            onClick={() => handleShow(p.productId)}
-                          >
-                            {p.productName}
-                          </Typography>
 
-                          <Typography
-                            gutterBottom
-                            variant="para"
-                            component="div"
-                          >
-                            ₹{p.salePrice - p.discount}
-                          </Typography>
-                        </CardContent>
-                        <CardActions sx={{ textAlign: "center" }}>
-                          <Button
-                            size="small"
-                            variant="contained"
-                            sx={{ backgroundColor: "#7B50D5" }}
-                          >
-                            Buy Now
-                          </Button>
-                          <Button
-                            size="small"
-                            variant="contained"
-                            sx={{ backgroundColor: "#7B50D5" }}
-                          >
-                            Add to Cart
-                          </Button>
-                        </CardActions>
-                      </Card>
-                    </Grid>
-                  );
-                })}
-            </Grid>
-          </div>
-        )}
-      </Container>
+     {
+      loading?(<Loading/>):(
+        <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={6}
+      >
+        {data &&
+          data.map((a, i) => {
+            return (
+              <Grid item sm={12} md={4} lg={3}>
+                <br />
+                <Card sx={{ maxWidth: 345 }} key={i}
+                 onClick={()=>handleShow(a.productId)}
+                >
+                  <CardMedia
+                    sx={{ height: 200,width:"100%",maxWidth:"142px",margin:"0px auto" }}
+                    image={a.imageURL}
+                    title="green iguana"
+                   
+                  />
+                  <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">{a.categoryType}</Typography>
+                    <Typography gutterBottom variant="h5" component="div" >
+                     <h5>{a.productName}</h5>
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      <p>{a.Description}</p>
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" style={{textDecoration:"line-through"}}>
+                     {`Actual price ${a.mrp} `}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" style={{textDecoration:"line"}}>
+                     { `Sale price${a.salePrice}`}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" style={{textDecoration:"line"}}>
+                     {`you save ${a.mrp-a.salePrice} in this order`}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button variant="outlined" >BUY NOW</Button>
+                    <Button variant="outlined" >ADD TO CART</Button>
+                  </CardActions>
+                </Card>
+              </Grid>
+            );
+          })}
+      </Grid>
+      )
+     }
     </div>
   );
 }
-
-export default CustProd;
 
 
 
