@@ -8,9 +8,9 @@ import "../../App";
 
 const DisplayProduct = () => {
   const [data, setData] = React.useState({});
+   // state to handle the image
   const [currentimage, setCurrentimage] = useState();
-  // state to handle the image
-  const[variant,setVariant]=useState()
+ 
 
   const { productId } = useParams();
 
@@ -158,5 +158,18 @@ const DisplayProduct = () => {
     </div>
   );
 };
+
+
+// app.css
+.im1
+{
+    width: 100%;
+    max-width: 470px;
+}
+
+.img2{
+    height: 100px;
+    width: 100px;
+}
 
 export default DisplayProduct;
