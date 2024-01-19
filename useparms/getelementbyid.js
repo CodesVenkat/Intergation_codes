@@ -132,10 +132,10 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 
 const DisplayProduct = () => {    
-    const{id}=useParams();
+    const{productId}=useParams();
   return (
     <div>
-        <h1>{`${id}`}</h1>
+        <h1>{`${productId}`}</h1>
     </div>
   )
 }
@@ -159,7 +159,7 @@ function App() {
     
     <Routes>
       <Route path="/DisplayProduct" element={<DisplayProduct/>} />
-      <Route path="/DisplayProduct/:id" element={<DisplayProduct/>} />
+      <Route path="/DisplayProduct/:productId" element={<DisplayProduct/>} />
     </Routes>
     </LoadingContext>
     
