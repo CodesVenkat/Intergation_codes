@@ -54,11 +54,11 @@ export default function CustomerCard() {
 import React from 'react'
 
 const DisplayProduct = () => {
-    const{id}=useParams()
+    const{productId}=useParams()
 
   return (
     <div>
-        <h1>{`${id}`}</h1>
+        <h1>{`${productId}`}</h1>
     </div>
   )
 }
