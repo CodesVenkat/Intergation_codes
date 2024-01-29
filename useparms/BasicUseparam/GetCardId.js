@@ -8,7 +8,7 @@ function App() {
     <LoadingContext>
     <Routes>
       <Route path="/DisplayProduct" element={<DisplayProduct/>} />
-      <Route path="/DisplayProduct/:id" element={<DisplayProduct/>} />
+      <Route path="/DisplayProduct/:productId" element={<DisplayProduct/>} />
     </Routes>
     </LoadingContext>
   );
