@@ -1,10 +1,11 @@
 // create a context here
 
 import React, {  createContext, useState } from "react";
-
+// first of all import and export the usecontext
 export const Appcontext = createContext();
 
 const Contextuse = ({children}) => {
+    // and then Pass a Parameter as a children
   const [name, setName] = useState('');
 
   return (
