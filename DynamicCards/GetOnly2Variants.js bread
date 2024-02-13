@@ -1,0 +1,61 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import apiService from "../services/apiService";
+import Loading from "../Loading";
+
+const DisplayProducts = () => {
+  const { productId } = useParams();
+  const [data, setData] = useState([]);
+  const [currentImage, setCurrentImage] = useState();
+  const [newimg, setnewImg] = useState();
+  const [variant, setVariant] = useState();
+
+  const getAPI = () => {
+    apiService(product/${productId}, "", "unauthget")
+      .then((result) => {
+        setData(result.data);
+        if (result.data.numberOfVariants === 0) {
+          setnewImg(result.data.variantImages);
+          result.data.variantImages.forEach((element) => {
+            if (element.defaultImage === 1) {
+              setCurrentImage(element.imageURL);
+            }
+          });
+        }
+        console.log(result.data, "productid");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  useEffect(() => {
+    getAPI();
+  }, []);
+
+  return (
+    <div>
+      {currentImage ? (
+        <>
+          <img
+            src={currentImage}
+            alt="img"
+            style={{}}
+          />
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
+     <div style={{display:'flex', marginTop:'20px', gap:'20px'}}>
+     {newimg && newimg.map((a,i) => (
+        <div key={i}>
+        <img src={a.imageURL} alt="img" style={{width:'100px', height:'100px'}} onClick={() => setCurrentImage(a.imageURL)}/>
+        </div>
+      ))}
+     </div>
+    </div>
+  );
+};
+
+export default DisplayProducts;
